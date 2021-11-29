@@ -83,10 +83,26 @@ app.post('/trap-update', (req, res) => {
                     });
                 }
             });
-            console.log(1, updateStatus);
         }
     });
+});
 
+app.post('/trap-json', (req, res) => {
+    console.log(req.query);
+    const { guid } = req.query;
+    fs.readFile('result.txt', function(err, data) {
+        if (err) { console.log(err); throw err; } else {
+            const stringRes = data.toString();
+            const stringResArr = '[' + stringRes + ']';
+            const jsonArray = JSON.parse(stringResArr);
+
+            jsonArray.forEach(el => {
+                if (el.uuid === guid) {
+                    res.json(el);
+                }
+            });
+        }
+    });
 });
 
 app.post('/trap-delete', (req, res) => {
@@ -117,11 +133,10 @@ app.post('/trap-delete', (req, res) => {
                     });
                 }
             });
-            console.log(1, updateStatus);
         }
     });
-
 });
+
 app.start();
 
 // docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management

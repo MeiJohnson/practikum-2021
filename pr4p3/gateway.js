@@ -12,6 +12,6 @@ app.get(['/friends', '/status'], async(req, res) => {
     await res.delegate('users');
 });
 
-app.post(['/hello', '/neko', '/romb', '/trap-file', '/trap-update', '/trap-delete'], (req, res) => res.delegate('test'));
+app.post(['/hello', '/neko', '/romb', '/trap-file', '/trap-update', '/trap-json', '/trap-delete'], (req, res) => res.delegate('test'));
 
 app.listen(process.env.PORT || 8080);
